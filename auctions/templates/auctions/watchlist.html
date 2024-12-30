@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    My Watchlist
+{% endblock %}
+
+{% block body %}
+    <h2>My Watchlist</h2>
+    <ul>
+        {% for item in watchlist %}
+            <li>
+                <a href="{% url 'listing_detail' item.listing.id %}">{{ item.listing.title }}</a>
+                (added on {{ item.added_at }})
+            </li>
+            {% if item.listing.image_url %}
+            <div class="listing-page-img-wrapper m-4">
+                <img src="{{ item.listing.image_url }}" class="card-img-top listing-page-img" alt="{{ item.listing.title }} photo" style="max-width: 300px;">
+            </div>
+        {% else %}
+            <p>No image available</p>
+        {% endif %}
+        {% endfor %}
+        <a href="{% url 'index' %}?listing_id={{ listing.id }}" class="btn btn-primary mt-2">Back</a>
+    </ul>
+{% endblock %}

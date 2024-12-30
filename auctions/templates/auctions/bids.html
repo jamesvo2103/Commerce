@@ -1,0 +1,23 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    My Bids
+{% endblock %}
+
+{% block body %}
+<h2>My Bids</h2>
+{% if bids %}
+    <ul>
+        {% for bid in bids %}
+            <li>
+                Listing: <a href="{% url 'listing_detail' bid.listing.id %}">{{ bid.listing.title }}</a>, 
+                Amount: ${{ bid.amount }}, 
+                Date: {{ bid.created_at }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have not placed any bids yet.</p>
+{% endif %}
+<a href="{% url 'index' %}?listing_id={{ listing.id }}" class="btn btn-primary mt-2">Back</a>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    {{ listing.title }}
+{% endblock %}
+
+{% block body %}
+    <h2>{{ listing.title }}</h2>
+    <p>{{ listing.description }}</p>
+    {% if listing.image_url %}
+        <div class="listing-page-img-wrapper m-4">
+            <img src="{{ listing.image_url }}" class="card-img-top listing-page-img" alt="{{ listing.title }} photo" style="max-width: 400px;">
+        </div>
+    {% else %}
+        <p>No image available</p>
+    {% endif %}
+    <p><strong>Starting Bid:</strong> ${{ listing.starting_bid }}</p>
+    <p><strong>Category:</strong> {{ listing.category }}</p>
+    <p><strong>Posted By:</strong> {{ listing.created_by.username }}</p>
+    <div class="form-group">
+         <label for="latestBid">Latest Bid:</label> 
+         <select id="latestBid" class="form-control"> <option value="{{ latest_bid.amount }}">Bid: ${{ latest_bid.amount }} by {{ latest_bid.user.username }}</option> </select> </div>
+    <a href="{% url 'place_bid' %}?listing_id={{ listing.id }}" class="btn btn-primary mt-2">Place Bid</a>
+    {% if in_watchlist %}
+        <p class="text-success">This item is in your watchlist.</p>
+    {% else %}   
+        <form action="{% url 'add_to_watchlist' %}" method="post" style="display:inline;"> 
+            {% csrf_token %} 
+            <input type="hidden" name="listing_id" value="{{ listing.id }}"> 
+            <button type="submit" class="btn btn-primary mt-2">Add to Watchlist</button> 
+        </form>
+    {% endif %}
+    <!-- Close Auction Button for Creator --> 
+     {% if is_creator and listing.is_active %} 
+     <form action="{% url 'close_auction' listing.id %}" method="post" style="display:inline;"> 
+        {% csrf_token %} 
+        <button type="submit" class="btn btn-danger mt-2">Close Auction</button> 
+    </form> {% endif %} <!-- Display Auction Status --> 
+    {% if not listing.is_active %} 
+    <p class="text-danger">This auction is closed.</p> 
+    {% if listing.highest_bidder == request.user %} 
+    <p class="text-success">Congratulations! You won this auction.</p> 
+    {% endif %} {% endif %} <!-- Latest Bid Dropdown --> 
+    <div class="form-group"> <label for="latestBid">Latest Bid:</label> <select id="latestBid" class="form-control"> <option value="{{ latest_bid.amount }}">Bid: ${{ latest_bid.amount }} by {{ latest_bid.user.username }}</option> </select> </div>
+
+{% endblock %}
+

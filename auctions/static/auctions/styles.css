@@ -1,0 +1,80 @@
+/* Background color for the body */
+body {
+    background-color: #e1b382;
+    font-family: Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0; /* Ensure no default margin interferes */
+}
+
+
+header {
+    background: #2d545e;
+    padding: 10px 0;
+    color: white;
+    position: top;
+    bottom: 0;
+    width: 100%;
+}
+/* Ensuring the footer is always at the bottom */
+footer {
+    background: #2d545e;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: auto; /* Pushes the footer to the bottom of the viewport */
+    width: 100%;
+}
+
+/* Navbar link styling */
+.nav-link {
+    color: white !important;
+}
+
+.nav-link:hover {
+    color: #adb5bd !important;
+}
+
+/* Styling for listing items */
+.listings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.listing-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid #c89666;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.listing-image {
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.listing-photo {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.listing-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.listing-details h3 {
+    margin-top: 0;
+}
+
+.btn-primary {
+    align-self: flex-start;
+}
